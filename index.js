@@ -7,15 +7,30 @@ function getRandomInt(min, max) {
 
 
 
-var order = [];
 
-$('.btn').click(
+var player_order = [];
+// button event listeners
+function btninitialise(){
+$('.btn').on('mousedown',
     (e)=>{
+        var color = e.target.getAttribute('id')
         console.log(e.target.getAttribute('id'));
-        order.push(e.target.getAttribute('id'));
-        console.log(order)
+        
+        $('#'+color).toggleClass('pressed');
+        player_order.push(e.target.getAttribute('id'));
+        console.log(player_order)
     }
 );
+
+$('.btn').on('mouseup', function (e) {
+    $('#'+e.target.getAttribute('id')).toggleClass('pressed');
+    $('#level-title').text('chasdf 1');
+});
+}
+function btnoff(){
+    $('.btn').off('mousedown');
+    $('.btn').off('mouseup');
+};
 
 /*
 overview:
@@ -23,4 +38,12 @@ overview:
 - figure out how to remember how to store inputs (order of keys pressed)
 - 
 */
-
+function re_start(){
+$('body').on('keydown',
+    function(){
+    $('#level-title').text('level 1');
+    btninitialise();
+    $('body').off('keydown');
+    }
+);
+}
